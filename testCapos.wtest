@@ -1,1 +1,46 @@
-r
+import capos.*
+
+describe "rolando" {
+    
+    test "encontrar cosas" {
+        rolando.encontrar(espada)
+        rolando.encontrar(libro)
+        rolando.encontrar(collar)
+        assert.equals (#{espada, libro}, rolando.mochila()) 
+        // Como no importa el orden, utiliza un set/conjunto. Si importara el orden uso lista []       
+    }
+
+
+    test "ir a la casa" {
+        rolando.encontrar(espada)
+        rolando.encontrar(libro)
+        rolando.irAlHogar()
+        assert.notThat(rolando.tieneArtefactos())
+        // assert.equals(#{}, rolando.mochila())
+        rolando.encontrar(collar)
+        rolando.irAlHogar()
+        assert.equals(#{espada, libro, collar}, castillo.cofre())
+
+    }
+
+    test "posesiones" {
+        castillo.cofre(#{collar, espada})
+        rolando.mochila(#{armadura})
+        assert.equals(#{collar, espada, armadura}, rolando.posesiones())
+        assert.notThat(rolando.posee(libro))
+        assert.that(rolando.posee(collar))
+        assert.that(rolando.posee(espada))
+        assert.that(rolando.posee(armadura))
+    }
+
+    test "historial" {
+        rolando.encontrar(espada)
+        rolando.encontrar(libro)
+        rolando.encontrar(collar)
+        rolando.irAlHogar()
+        rolando.encontrar(armadura)
+        rolando.encontrar(collar)
+        assert.equals([espada, libro, collar, armadura, collar], rolando.historial())
+    }
+
+}
